@@ -132,7 +132,7 @@ const VideoScreen = () => {
             <View style={{ width: '100%', height: '100%', backgroundColor: 'black' }}>
                 <Video
                     ref={videoRef2}
-                    source={{ uri: "https://vps89738.serveur-vps.net/hls/todekaviwo.m3u8" }}
+                    source={{ uri: "https://vps89738.serveur-vps.net/hls/todekaviwo-tv.m3u8" }}
                     controls
                     paused={false}
                     resizeMode='contain'
