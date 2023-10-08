@@ -10,6 +10,7 @@ import {
     Dimensions,
     BackHandler,
     TouchableOpacity,
+    Image,
 } from 'react-native';
 // import YoutubeIframe from 'react-native-youtube-iframe';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -17,6 +18,7 @@ import Video from 'react-native-video';
 import storage from '@react-native-firebase/storage';
 import WebView from 'react-native-webview';
 import { colors } from '../constants/colors';
+import TrackPlayer from 'react-native-track-player';
 
 // const videos = [
 //     require('../assets/video1.mp4'),
@@ -70,7 +72,7 @@ const VideoScreen = () => {
     //     });
     // }
     useEffect(() => {
-        console.log('just for test');
+        TrackPlayer.pause();
 
     })
     // useEffect(() => {
@@ -132,7 +134,7 @@ const VideoScreen = () => {
             <View style={{ width: '100%', height: '100%', backgroundColor: 'black' }}>
                 <Video
                     ref={videoRef2}
-                    source={{ uri: "https://vps89738.serveur-vps.net/hls/todekaviwo-tv.m3u8" }}
+                    source={{ uri: "https://vps98020.serveur-vps.net/hls/todekaviwo-tv.m3u8" }}
                     controls
                     paused={false}
                     resizeMode='contain'
@@ -152,13 +154,19 @@ const VideoScreen = () => {
                     }}
                 // Autres propriétés et gestionnaires d'événements ici
                 />
-                {!isloaded&& < View style={{ flex: 1, width: '100%', flexDirection: 'column', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
-                <ActivityIndicator size={100} color="#00ff00" />
-                {textError!="" && <Text style={{ color: 'white', textAlign: "center", fontSize: 25, marginBottom: 15, fontWeight: 'bold' }}>{textError}</Text>}
+                {!isloaded && < View style={{ flex: 1, padding: 25, width: '100%',backgroundColor:'white',  flexDirection: 'column', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
+                    <Image source={require("../assets/tv.png")} style={{
+                        width: '100%',
+                        height: 120,
+                        marginRight: 25,
+                        objectFit: "cover"
+                    }} />
+                    <ActivityIndicator size={100} color="#00ff00" />
+                    {textError != "" && <Text style={{ color: 'white', textAlign: "center", fontSize: 25, marginBottom: 15, fontWeight: 'bold' }}>{textError}</Text>}
 
-            </View>}
+                </View>}
 
-            {/* {(istutoplaying || videoError) && <WebView
+                {/* {(istutoplaying || videoError) && <WebView
                     source={videos[randomIndex]}
                     // allowsInlineMediaPlayback={true}
                     allowsFullscreenVideo
@@ -166,7 +174,7 @@ const VideoScreen = () => {
                     // paused={paused}
                     style={styles3.video}
                 />} */}
-            {/* {(istutoplaying || videoError) && <Video
+                {/* {(istutoplaying || videoError) && <Video
                     source={videos[randomIndex]}
                     controls
                     paused={false}
@@ -175,7 +183,7 @@ const VideoScreen = () => {
                     style={{ position: 'absolute', width: "100%", height: '100%' }}
                 // Autres propriétés et gestionnaires d'événements ici
                 />} */}
-        </View>
+            </View>
         </ScrollView >
 
     );

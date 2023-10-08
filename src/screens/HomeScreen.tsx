@@ -68,10 +68,10 @@ const HomeScreen = () => {
                 <Button title='Cliquer pour Suivre la tv' color={colors.mainColor} onPress={() => nav.navigate('video')} />
             </TouchableOpacity> */}
             <Card2 imageSource={require("../assets/tv.png")} text="TV Todekaviwo" onPress={() => nav.navigate('video')} />
-            <Card2 imageSource={require("../assets/logo.png")} text="Radio Todekaviwo" onPress={() => nav.navigate('radio')} />
+            <Card2 imageSource={require("../assets/radio.png")} text="Radio Todekaviwo" onPress={() => nav.navigate('radio')} />
             <Card2 imageSource={require("../assets/facebook.png")} text="Facebook Todekaviwo" onPress={handleFacebookPress} />
             <Card2 imageSource={require("../assets/youtube.png")} text="Youtube Todekaviwo" onPress={handleYoutubePress} />
-            <Card2 icon={'globe-africa'} text="Site Web" onPress={handleSitePress} />
+            <Card2 imageSource={require("../assets/site.png")} text="Site Web" onPress={handleSitePress} />
        
             <View style={{ marginBottom:45 }}></View>
         </ScrollView>

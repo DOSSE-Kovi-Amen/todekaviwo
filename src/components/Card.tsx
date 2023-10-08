@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
     marginRight: 25,
+    objectFit:"contain"
+
   },
   text: {
     flex: 1,

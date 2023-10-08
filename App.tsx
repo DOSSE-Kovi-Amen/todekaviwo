@@ -8,6 +8,7 @@ import DrawerLayout from './src/screens/DrawerLayout';
 import SplashScreen from 'react-native-splash-screen';
 import VideoScreen from './src/screens/VideoScreen';
 import RadioScreen from './src/screens/RadioScreen';
+import TrackPlayer from 'react-native-track-player';
 // import TrackPlayer, { State } from 'react-native-track-player';
 
 const App = () => {
@@ -53,12 +54,27 @@ const App = () => {
   const { width, height } = Dimensions.get('window');
 
   const Stack = createNativeStackNavigator();
+  useEffect(() => {
+    const tracks: any = [{
+      id: 1,
+      url: "http://195.110.35.54:8000/radiotodakaviwo.mp3",
+      title: 'Radio  todekaviwo',
+      artist: 'Nom de l\'artiste 1',
+      type: 'default',
+    }]
+    console.log('Start radio');
 
+    TrackPlayer.setupPlayer().then(async () => {
+      // Ajoutez toutes les pistes à la liste de lecture
+      await TrackPlayer.add(tracks);
+      // Écoutez l'événement onPlaybackQueueEnded
+    });
+  }, [])
   return (
     <NavigationContainer>
       <StatusBar
         animated={true}
-        backgroundColor='#f73d02'
+        backgroundColor='#1d3efb'
       />
       <Stack.Navigator initialRouteName="drawer"
         screenOptions={{
@@ -66,8 +82,8 @@ const App = () => {
         }}
       >
         <Stack.Screen name="drawer" component={DrawerLayout} options={{ headerShown: false }} />
-        <Stack.Screen name="video" component={VideoScreen} options={{ headerShown: false}} />
-        <Stack.Screen name="radio" component={RadioScreen} options={{ headerShown: true}} />
+        <Stack.Screen name="video" component={VideoScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="radio" component={RadioScreen} options={{ headerShown: true, headerTitle: 'Radio' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

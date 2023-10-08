@@ -9,6 +9,7 @@ import {
     RefreshControl,
     Dimensions,
     Button,
+    Image,
 } from 'react-native';
 // import YoutubeIframe from 'react-native-youtube-iframe';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -32,6 +33,49 @@ const RadioScreen = () => {
             setRefreshing(false);
         }, 2000);
     }, []);
+    useEffect(() => {
+        TrackPlayer.play();
+
+        TrackPlayer.addEventListener(Event.PlaybackState, async (data) => {
+
+            // TrackPlayer.skip(1);
+            // await TrackPlayer.skipToNext();
+
+
+            if (data.state.toString() === "idle") {
+                // Lorsque la piste est en état "Idle", passez à la piste audio suivante
+                console.log(data.state);
+                // await TrackPlayer.play();
+
+
+                // await TrackPlayer.skipToNext()
+                // const currentTrack = await TrackPlayer.getCurrentTrack();
+                setIsLoading(false);
+                Alert.alert("Oops radio éteinte!")
+
+            }
+            // if (data.state === State.Stopped && isLoading) {
+            //     // La radio s'est arrêtée, commencez à jouer les autres fichiers audio
+            //     console.log('stopped...');
+            //     TrackPlayer.play();
+            //     setIsLoading(true);
+            // }
+            if (data.state === State.Playing) {
+                console.log('playing...');
+                // TrackPlayer.play();
+                setIsLoading(false);
+            }
+
+        });
+        TrackPlayer.addEventListener(Event.PlaybackTrackChanged, async (data) => {
+            if (data.nextTrack) {
+                // Le lecteur est passé au morceau suivant dans la liste de lecture
+                // Vous pouvez vérifier ici si le prochain morceau est le suivant que vous souhaitez lire
+                // Si c'est le cas, commencez la lecture automatiquement
+                await TrackPlayer.play();
+            }
+        });
+    }, [])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -46,8 +90,7 @@ const RadioScreen = () => {
 
     const playRadio = async () => {
         setPause(false);
-        // TrackPlayer.play();
-
+        TrackPlayer.play();
     };
 
     const pauseRadio = async () => {
@@ -76,64 +119,66 @@ const RadioScreen = () => {
     //     }
     // }
 
-    useEffect(() => {
-        const tracks :any= [{
-            id: 1,
-            url: "https://dashboard.groupelynxvision.org/storage/",
-            title: 'Radio  todekaviwo',
-            artist: 'Nom de l\'artiste 1',
-            type: 'default',
-        }]
-        TrackPlayer.setupPlayer().then(async () => {
+    // useEffect(() => {
+    //     const tracks: any = [{
+    //         id: 1,
+    //         url: "http://195.110.35.54:8000/radiotodakaviwo.mp3",
+    //         title: 'Radio  todekaviwo',
+    //         artist: 'Nom de l\'artiste 1',
+    //         type: 'default',
+    //     }]
+    //     console.log('Start radio');
 
-            // Ajoutez toutes les pistes à la liste de lecture
-            await TrackPlayer.add(tracks);
+    //     TrackPlayer.setupPlayer().then(async () => {
 
-            // Écoutez l'événement onPlaybackQueueEnded
+    //         // Ajoutez toutes les pistes à la liste de lecture
+    //         await TrackPlayer.add(tracks);
 
-            await TrackPlayer.play();
+    //         // Écoutez l'événement onPlaybackQueueEnded
 
-            TrackPlayer.addEventListener(Event.PlaybackState, async (data) => {
+    //         await TrackPlayer.play();
 
-                // TrackPlayer.skip(1);
-                // await TrackPlayer.skipToNext();
+    // TrackPlayer.addEventListener(Event.PlaybackState, async (data) => {
 
-
-                if (data.state.toString() === "idle") {
-                    // Lorsque la piste est en état "Idle", passez à la piste audio suivante
-                    console.log(data.state);
-                    await TrackPlayer.play();
+    //     // TrackPlayer.skip(1);
+    //     // await TrackPlayer.skipToNext();
 
 
-                    await TrackPlayer.skipToNext()
-                    // const currentTrack = await TrackPlayer.getCurrentTrack();
-                    setIsLoading(false);
-                    Alert.alert("Oops radio éteinte!")
+    //     if (data.state.toString() === "idle") {
+    //         // Lorsque la piste est en état "Idle", passez à la piste audio suivante
+    //         console.log(data.state);
+    //         // await TrackPlayer.play();
 
-                }
-                // if (data.state === State.Stopped && isLoading) {
-                //     // La radio s'est arrêtée, commencez à jouer les autres fichiers audio
-                //     console.log('stopped...');
-                //     TrackPlayer.play();
-                //     setIsLoading(true);
-                // }
-                if (data.state === State.Playing) {
-                    console.log('playing...');
-                    TrackPlayer.play();
-                    setIsLoading(false);
-                }
 
-            });
-            TrackPlayer.addEventListener(Event.PlaybackTrackChanged, async (data) => {
-                if (data.nextTrack) {
-                    // Le lecteur est passé au morceau suivant dans la liste de lecture
-                    // Vous pouvez vérifier ici si le prochain morceau est le suivant que vous souhaitez lire
-                    // Si c'est le cas, commencez la lecture automatiquement
-                    await TrackPlayer.play();
-                }
-            });
-        });
-    }, [])
+    //         // await TrackPlayer.skipToNext()
+    //         // const currentTrack = await TrackPlayer.getCurrentTrack();
+    //         setIsLoading(false);
+    //         Alert.alert("Oops radio éteinte!")
+
+    //     }
+    //     // if (data.state === State.Stopped && isLoading) {
+    //     //     // La radio s'est arrêtée, commencez à jouer les autres fichiers audio
+    //     //     console.log('stopped...');
+    //     //     TrackPlayer.play();
+    //     //     setIsLoading(true);
+    //     // }
+    //     if (data.state === State.Playing) {
+    //         console.log('playing...');
+    //         // TrackPlayer.play();
+    //         setIsLoading(false);
+    //     }
+
+    // });
+    // TrackPlayer.addEventListener(Event.PlaybackTrackChanged, async (data) => {
+    //     if (data.nextTrack) {
+    //         // Le lecteur est passé au morceau suivant dans la liste de lecture
+    //         // Vous pouvez vérifier ici si le prochain morceau est le suivant que vous souhaitez lire
+    //         // Si c'est le cas, commencez la lecture automatiquement
+    //         await TrackPlayer.play();
+    //     }
+    // });
+    //     });
+    // }, [])
 
     // async function checkServerStatus() {
     //     try {
@@ -300,22 +345,28 @@ const RadioScreen = () => {
             // Autres propriétés et gestionnaires d'événements ici
             /> */}
 
-            <View style={{ width: '100%', height: '100%', backgroundColor: '#1D2527' }}>
+            <View style={{ width: '100%', height: '100%', backgroundColor: '#ffffff' }}>
                 {isLoading ? (
                     <View style={{ height: 100, width: '100%', marginBottom: 10, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                         <ActivityIndicator size={80} color="green" />
-                        <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Chargement de la radio en cours...</Text>
+                        <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Chargement de la radio en cours...</Text>
                     </View>
                 ) : <View style={{ height: 150, flexDirection: 'row', justifyContent: 'center' }}>
-                    <Icon2 name='radio' color={second % 2 == 0 ? '#FFFFFF9C' : '#FFFFFF'} size={second % 2 == 0 ? 170 : 190} />
+                    <Icon2 name='radio' color={second % 2 == 0 ? '#5050509C' : '#000000'} size={second % 2 == 0 ? 170 : 190} />
                 </View>
                 }
 
-                <View style={{ height: 200, flexDirection: 'row', justifyContent: 'center' }}>
-                    <Icon name='radio' color='#ffffff' size={140} />
+                <View style={{ height: 150,marginBottom:40,padding:25, flexDirection: 'row', justifyContent: 'center' }}>
+                    {/* <Icon name='radio' color='#ffffff' size={140} /> */}
+                    <Image source={require("../assets/radio.png")} style={{
+                        width: 175,
+                        height: 175,
+                        marginRight: 25,
+                        objectFit: "cover"
+                    }} />
                 </View>
                 <View style={styles.container}>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#ffffff' }}>Radio Todekaviwo</Text>
+                    {/* <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#ffffff' }}>Radio Todekaviwo</Text> */}
                     <View style={styles.controls}>
                         <Button title="Jouer" onPress={playRadio} color='#528CBD' />
                         <View style={{ width: 15 }}></View>
