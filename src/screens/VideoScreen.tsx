@@ -19,6 +19,7 @@ import storage from '@react-native-firebase/storage';
 import WebView from 'react-native-webview';
 import { colors } from '../constants/colors';
 import TrackPlayer from 'react-native-track-player';
+import { Project } from '../constants/type';
 
 // const videos = [
 //     require('../assets/video1.mp4'),
@@ -33,6 +34,7 @@ const VideoScreen = () => {
     const [videoError, setVideoError] = useState(false);
     const [isloaded, setIsLoaded] = useState(false);
     const [isloading, setIsLoading] = useState(true);
+    const [tvUrl, setTvUrl] = useState<string>("");
 
     const videoRef = useRef<any>(null);
     const videoRef2 = useRef<any>(null);
@@ -41,19 +43,7 @@ const VideoScreen = () => {
     const nav = useNavigation();
     const [randomIndex, setRandomIndex] = useState(0);
 
-    // const playNextRandomVideo = () => {
-    //     const newIndex = Math.floor(Math.random() * videos.length);
-    //     setRandomIndex(newIndex);
-    // };
 
-
-    // useEffect(() => {
-    //     playNextRandomVideo();
-    // }, []);
-    // const onVideoEnd = () => {
-    //     playNextRandomVideo();
-    //     // videoRef?.current?.seek(0); // Rembobine la vidéo à 0 pour la lecture en boucle
-    //   };
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setIsTutoplaying(false);
@@ -64,23 +54,26 @@ const VideoScreen = () => {
 
         }, 1000);
     }, []);
-    // const getStorage = async () => {
-    //     storage().ref(`files/pub.mp4`).getDownloadURL().then((downloadURL) => {
-    //         setVideoStore(downloadURL)
-    //     }).catch((error) => {
-    //         Alert.alert(error.message)
-    //     });
-    // }
+
     useEffect(() => {
         TrackPlayer.pause();
 
     })
-    // useEffect(() => {
-    //     // setTimeout(() => {
-    //     //     setIsLoading(false)
-    //     // }, 4000);
-
-    // }, [isFocused]);
+    useEffect(() => {
+        fetch('https://dashboard.groupelynxvision.org/api/projects/todekaviwo')
+        .then(response => {
+          return response.json();
+        })
+        .then(async (data: Project) => {
+          console.log('====================================');
+          console.log(data.tv);
+          console.log('====================================');
+          setTvUrl(data.tv)
+        })
+    
+      
+    }, [])
+    
 
     const handleVideoError = (e: any) => {
         setIsLoading(false)
@@ -132,9 +125,9 @@ const VideoScreen = () => {
             <TouchableOpacity style={{ padding: 15, backgroundColor: colors.mainColor, position: 'absolute', top: 20, left: 20, zIndex: 15 }} onPress={() => { nav.goBack() }}><Text style={{ color: 'white' }}>Retour</Text></TouchableOpacity>
 
             <View style={{ width: '100%', height: '100%', backgroundColor: 'black' }}>
-                <Video
+               {tvUrl!=""&& <Video
                     ref={videoRef2}
-                    source={{ uri: "https://vps98020.serveur-vps.net/hls/todekaviwo-tv.m3u8" }}
+                    source={{ uri: tvUrl }}
                     controls
                     paused={false}
                     resizeMode='contain'
@@ -153,11 +146,11 @@ const VideoScreen = () => {
                         setIsTutoplaying(false)
                     }}
                 // Autres propriétés et gestionnaires d'événements ici
-                />
-                {!isloaded && < View style={{ flex: 1, padding: 25, width: '100%',backgroundColor:'white',  flexDirection: 'column', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
+                />}
+                {!isloaded && < View style={{ flex: 1, padding: 25, width: '100%',backgroundColor:'black',  flexDirection: 'column', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
                     <Image source={require("../assets/tv.png")} style={{
                         width: '100%',
-                        height: 120,
+                        height: 400,
                         marginRight: 25,
                         objectFit: "cover"
                     }} />

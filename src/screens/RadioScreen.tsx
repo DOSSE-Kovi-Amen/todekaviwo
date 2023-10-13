@@ -34,7 +34,13 @@ const RadioScreen = () => {
         }, 2000);
     }, []);
     useEffect(() => {
-        TrackPlayer.play();
+
+        radioOnInit()
+        console.log('radio on init');
+        
+    }, [])
+    const radioOnInit=async () => {
+      await  TrackPlayer.play();
 
         TrackPlayer.addEventListener(Event.PlaybackState, async (data) => {
 
@@ -50,7 +56,6 @@ const RadioScreen = () => {
 
                 // await TrackPlayer.skipToNext()
                 // const currentTrack = await TrackPlayer.getCurrentTrack();
-                setIsLoading(false);
                 Alert.alert("Oops radio éteinte!")
 
             }
@@ -75,8 +80,7 @@ const RadioScreen = () => {
                 await TrackPlayer.play();
             }
         });
-    }, [])
-
+    }
     useEffect(() => {
         const interval = setInterval(() => {
             setSecond((prev) => prev + 1);
@@ -110,206 +114,6 @@ const RadioScreen = () => {
         },
     });
 
-    // function isStringJson(chaine: string) {
-    //     try {
-    //         JSON.parse(chaine);
-    //         return true;
-    //     } catch (error) {
-    //         return false;
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     const tracks: any = [{
-    //         id: 1,
-    //         url: "http://195.110.35.54:8000/radiotodakaviwo.mp3",
-    //         title: 'Radio  todekaviwo',
-    //         artist: 'Nom de l\'artiste 1',
-    //         type: 'default',
-    //     }]
-    //     console.log('Start radio');
-
-    //     TrackPlayer.setupPlayer().then(async () => {
-
-    //         // Ajoutez toutes les pistes à la liste de lecture
-    //         await TrackPlayer.add(tracks);
-
-    //         // Écoutez l'événement onPlaybackQueueEnded
-
-    //         await TrackPlayer.play();
-
-    // TrackPlayer.addEventListener(Event.PlaybackState, async (data) => {
-
-    //     // TrackPlayer.skip(1);
-    //     // await TrackPlayer.skipToNext();
-
-
-    //     if (data.state.toString() === "idle") {
-    //         // Lorsque la piste est en état "Idle", passez à la piste audio suivante
-    //         console.log(data.state);
-    //         // await TrackPlayer.play();
-
-
-    //         // await TrackPlayer.skipToNext()
-    //         // const currentTrack = await TrackPlayer.getCurrentTrack();
-    //         setIsLoading(false);
-    //         Alert.alert("Oops radio éteinte!")
-
-    //     }
-    //     // if (data.state === State.Stopped && isLoading) {
-    //     //     // La radio s'est arrêtée, commencez à jouer les autres fichiers audio
-    //     //     console.log('stopped...');
-    //     //     TrackPlayer.play();
-    //     //     setIsLoading(true);
-    //     // }
-    //     if (data.state === State.Playing) {
-    //         console.log('playing...');
-    //         // TrackPlayer.play();
-    //         setIsLoading(false);
-    //     }
-
-    // });
-    // TrackPlayer.addEventListener(Event.PlaybackTrackChanged, async (data) => {
-    //     if (data.nextTrack) {
-    //         // Le lecteur est passé au morceau suivant dans la liste de lecture
-    //         // Vous pouvez vérifier ici si le prochain morceau est le suivant que vous souhaitez lire
-    //         // Si c'est le cas, commencez la lecture automatiquement
-    //         await TrackPlayer.play();
-    //     }
-    // });
-    //     });
-    // }, [])
-
-    // async function checkServerStatus() {
-    //     try {
-    //         const response = await fetch("http://vps89738.serveur-vps.net:8000/radiotodekaviwo");
-    //         // Vérifiez si la réponse est valide (statut HTTP, contenu, etc.)
-
-    //         // Si le serveur ne répond pas ou renvoie une erreur
-    //         if (!response.ok) {
-    //             // Affichez une alerte pour informer l'utilisateur du problème
-    //             // Alert.alert('Erreur de serveur de diffusion', 'Le serveur de diffusion a rencontré une erreur.');
-    //         } else {
-    //             await TrackPlayer.pause()
-    //             setPause(false);
-    //         }
-    //     } catch (error) {
-    //         // Une erreur s'est produite lors de la vérification (peut être due à une absence de réseau)
-    //         // console.error('Erreur de vérification du serveur de diffusion :', error);
-    //         await TrackPlayer.play()
-    //         setPause(true)
-    //     }
-    // }
-
-
-    // useEffect(() => {
-    //     let tracks: any = [];
-    //     // checkServerStatus();
-
-    //     const interval = setInterval(() => {
-    //         checkServerStatus();
-    //     }, 15000);
-
-    //     fetch('https://dashboard.groupelynxvision.org/api/files/todekaviwo')
-    //         .then((response) => {
-    //             // Gestion de la réponse HTTP
-    //             if (!response.ok) {
-    //                 throw new Error('Erreur réseau');
-    //             }
-    //             // Analyse de la réponse JSON
-    //             return response.json();
-    //         })
-    //         .then((data) => {
-    //             // Gestion des données JSON
-    //             console.log('====================================');
-    //             console.log(data);
-    //             console.log('====================================');
-    //             // Faites quelque chose avec les données ici
-    //             if (isStringJson(data?.files)) {
-    //                 // setFiles(JSON.parse(data?.files));
-    //                 JSON.parse(data?.files)?.map((url: any, index: number) => {
-    //                     tracks.push({
-    //                         id: index + 1,
-    //                         url: "https://dashboard.groupelynxvision.org/storage/" + url,
-    //                         title: 'Radio  todekaviwo',
-    //                         artist: 'Nom de l\'artiste 1',
-    //                         type: 'default',
-    //                     })
-    //                 })
-
-    //             } else {
-    //                 tracks.push({
-    //                     id: 1,
-    //                     url: "https://dashboard.groupelynxvision.org/storage/" + data?.files,
-    //                     title: 'Radio  todekaviwo',
-    //                     artist: 'Nom de l\'artiste 1',
-    //                     type: 'default',
-    //                 })
-    //             }
-    //             TrackPlayer.setupPlayer().then(async () => {
-    //                 const shuffledPlaylist = _.shuffle(tracks);
-
-    //                 // Ajoutez toutes les pistes à la liste de lecture
-    //                 await TrackPlayer.add(shuffledPlaylist);
-    //                 console.log('=============test2=======================');
-    //                 console.log(tracks);
-    //                 console.log('====================================');
-    //                 // Écoutez l'événement onPlaybackQueueEnded
-
-    //                 await TrackPlayer.play();
-
-    //                 TrackPlayer.addEventListener(Event.PlaybackState, async (data) => {
-
-    //                     // TrackPlayer.skip(1);
-    //                     // await TrackPlayer.skipToNext();
-
-
-    //                     if (data.state.toString() === "idle") {
-    //                         // Lorsque la piste est en état "Idle", passez à la piste audio suivante
-    //                         console.log(data.state);
-    //                         await TrackPlayer.play();
-
-
-    //                         await TrackPlayer.skipToNext()
-    //                         const currentTrack = await TrackPlayer.getCurrentTrack();
-    //                         setIsLoading(false);
-
-    //                     }
-    //                     if (data.state === State.Stopped && isLoading) {
-    //                         // La radio s'est arrêtée, commencez à jouer les autres fichiers audio
-    //                         console.log('stopped...');
-    //                         TrackPlayer.play();
-    //                         setIsLoading(true);
-    //                     }
-    //                     if (data.state === State.Playing) {
-    //                         console.log('playing...');
-    //                         TrackPlayer.play();
-    //                         setIsLoading(false);
-    //                     }
-
-    //                 });
-    //                 TrackPlayer.addEventListener(Event.PlaybackTrackChanged, async (data) => {
-    //                     if (data.nextTrack) {
-    //                       // Le lecteur est passé au morceau suivant dans la liste de lecture
-    //                       // Vous pouvez vérifier ici si le prochain morceau est le suivant que vous souhaitez lire
-    //                       // Si c'est le cas, commencez la lecture automatiquement
-    //                       await TrackPlayer.play();
-    //                     }
-    //                   });
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             // Gestion des erreurs
-    //             console.error(error);
-    //         });
-
-    //     return () => {
-    //         // TrackPlayer.reset()// Nettoyage lorsque le composant est démonté
-    //         clearInterval(interval);
-    //     }
-    // }, [])
-
-
 
     return (
         <ScrollView
@@ -317,33 +121,6 @@ const RadioScreen = () => {
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
-
-            {/* <Video
-                source={{ uri: "http://vps89738.serveur-vps.net:8000/radiotodekaviwo" }}
-                controls
-                audioOnly
-                paused={pause}
-                onLoad={async (e) => {
-                    setIsLoading(false)
-                    await TrackPlayer.pause()
-                }}
-                onError={() => {
-                    TrackPlayer.play()
-                    console.log('====================================');
-                    console.log('error');
-                    console.log('====================================');
-                }}
-                onBuffer={async () => {
-                    await TrackPlayer.play()
-                    console.log('====================================');
-                    console.log('error');
-                    console.log('====================================');
-                }}
-
-                resizeMode='contain'
-                style={{ position: "absolute", width: 0, height: 0, zIndex: 15 }}
-            // Autres propriétés et gestionnaires d'événements ici
-            /> */}
 
             <View style={{ width: '100%', height: '100%', backgroundColor: '#ffffff' }}>
                 {isLoading ? (
