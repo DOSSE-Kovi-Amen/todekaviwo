@@ -30,7 +30,7 @@ export default function ContactScreen() {
   };
   return (
     <ScrollView>
-      <View style={{ backgroundColor:'white', height:Dimensions.get('window').height }}>
+      <View style={{ height:Dimensions.get('window').height }}>
       <View style={styles.container}>
 
         <Text style={styles.title}>Contactez-nous :</Text>

@@ -61,7 +61,7 @@ const HomeScreen = () => {
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
-            <Text style={{ color: 'black', textAlign: "center", fontSize: 18, marginBottom: 15, fontWeight: 'bold' }}>Cliquer sur l'un des lien suivants</Text>
+            <Text style={{ color: 'black', textAlign: "center", fontSize: 18, marginBottom: 15, fontWeight: 'bold' }}>Cliquer sur l'un des liens suivants</Text>
             <Text style={{ color: 'black', textAlign: "center", fontSize: 25, marginBottom: 15, fontWeight: 'bold' }}>👇</Text>
 
             {/* <TouchableOpacity onPress={() => nav.navigate('video')}>
