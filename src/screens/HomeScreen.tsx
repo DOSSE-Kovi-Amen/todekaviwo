@@ -30,11 +30,11 @@ const HomeScreen = () => {
     const nav: any = useNavigation();
 
     const handleYoutubePress = () => {
-        Linking.openURL('https://www.youtube.com/channel/UCMpMXcrxIohko3aLaugHr_g');
+        Linking.openURL('https://youtube.com/@ConceptTodekaviwo?si=39O-fR16lG6bADGF');
     };
 
     const handleFacebookPress = () => {
-        Linking.openURL('https://www.facebook.com/profile.php?id=61552041984242&mibextid=ZbWKwL');
+        Linking.openURL('https://www.facebook.com/concepttodekaviwo?mibextid=2JQ9oc');
     };
     const handleSitePress = () => {
         Linking.openURL('https://www.todekaviwo.org');
