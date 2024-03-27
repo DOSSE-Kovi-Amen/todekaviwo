@@ -161,7 +161,7 @@ const App = () => {
       });
 
     return () => {
-      TrackPlayer.reset(); // Nettoyage lorsque le composant est démonté
+      // TrackPlayer.reset(); // Nettoyage lorsque le composant est démonté
       // clearInterval(interval);
     };
   }, []);

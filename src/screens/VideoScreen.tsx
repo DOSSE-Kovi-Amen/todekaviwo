@@ -150,9 +150,9 @@ const VideoScreen = () => {
                 {!isloaded && < View style={{ flex: 1, padding: 25, width: '100%',backgroundColor:'black',  flexDirection: 'column', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
                     <Image source={require("../assets/tv.png")} style={{
                         width: '100%',
-                        height: 400,
+                        height: 300,
                         marginRight: 25,
-                        objectFit: "cover"
+                        objectFit: "contain"
                     }} />
                     <ActivityIndicator size={100} color="#00ff00" />
                     {textError != "" && <Text style={{ color: 'white', textAlign: "center", fontSize: 25, marginBottom: 15, fontWeight: 'bold' }}>{textError}</Text>}

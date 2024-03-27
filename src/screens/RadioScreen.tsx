@@ -10,6 +10,7 @@ import {
     Dimensions,
     Button,
     Image,
+    ImageBackground,
 } from 'react-native';
 // import YoutubeIframe from 'react-native-youtube-iframe';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -37,10 +38,10 @@ const RadioScreen = () => {
 
         radioOnInit()
         console.log('radio on init');
-        
+
     }, [])
-    const radioOnInit=async () => {
-      await  TrackPlayer.play();
+    const radioOnInit = async () => {
+        await TrackPlayer.play();
 
         TrackPlayer.addEventListener(Event.PlaybackState, async (data) => {
 
@@ -110,7 +111,7 @@ const RadioScreen = () => {
         },
         controls: {
             flexDirection: 'row',
-            marginTop: 20,
+            marginTop: 80,
         },
     });
 
@@ -121,40 +122,42 @@ const RadioScreen = () => {
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
+            <ImageBackground source={require("../assets/radioback.jpeg")} resizeMode="cover" style={{ flex:1, width:'100%' }}>
 
-            <View style={{ width: '100%', height: '100%', backgroundColor: '#ffffff' }}>
-                {isLoading ? (
-                    <View style={{ height: 100, width: '100%', marginBottom: 10, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                        <ActivityIndicator size={80} color="green" />
-                        <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Chargement de la radio en cours...</Text>
+
+                <View style={{ width: '100%', height: '100%' }}>
+                    {isLoading ? (
+                        <View style={{ height: 100, width: '100%', marginBottom: 10, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator size={80} color="green" />
+                            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Chargement de la radio en cours...</Text>
+                        </View>
+                    ) : <View style={{ height: 150, flexDirection: 'row', justifyContent: 'center' }}>
+                        <Icon2 name='radio' color={second % 2 == 0 ? '#7C7C7CC0' : '#FFFFFF'} size={second % 2 == 0 ? 120 : 140} />
                     </View>
-                ) : <View style={{ height: 150, flexDirection: 'row', justifyContent: 'center' }}>
-                    <Icon2 name='radio' color={second % 2 == 0 ? '#5050509C' : '#000000'} size={second % 2 == 0 ? 170 : 190} />
-                </View>
-                }
+                    }
 
-                <View style={{ height: 150,marginBottom:40,padding:25, flexDirection: 'row', justifyContent: 'center' }}>
-                    {/* <Icon name='radio' color='#ffffff' size={140} /> */}
-                    <Image source={require("../assets/radio.png")} style={{
-                        width: 175,
-                        height: 175,
-                        marginRight: 25,
-                        objectFit: "cover"
-                    }} />
-                </View>
-                <View style={styles.container}>
-                    {/* <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#ffffff' }}>Radio Todekaviwo</Text> */}
-                    <View style={styles.controls}>
-                        <Button title="Jouer" onPress={playRadio} color='#528CBD' />
-                        <View style={{ width: 15 }}></View>
-                        <Button title="Pause" onPress={pauseRadio} color='#E41D1D' />
+                    <View style={{ height: 150, marginBottom: 40, padding: 25, flexDirection: 'row', justifyContent: 'center' }}>
+                        {/* <Icon name='radio' color='#ffffff' size={140} /> */}
+                        {/* <Image source={require("../assets/radio.png")} style={{
+                            width: 175,
+                            height: 175,
+                            marginRight: 25,
+                            objectFit: "cover"
+                        }} /> */}
+                    </View>
+                    <View style={styles.container}>
+                        {/* <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#ffffff' }}>Radio Todekaviwo</Text> */}
+                        <View style={styles.controls}>
+                            <Button title="Jouer" onPress={playRadio} color='#528CBD' />
+                            <View style={{ width: 15 }}></View>
+                            <Button title="Pause" onPress={pauseRadio} color='#E41D1D' />
+                        </View>
+
                     </View>
 
+
                 </View>
-
-
-            </View>
-
+            </ImageBackground>
         </ScrollView>
 
     );

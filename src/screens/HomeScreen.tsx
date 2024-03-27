@@ -32,7 +32,9 @@ const HomeScreen = () => {
     const handleYoutubePress = () => {
         Linking.openURL('https://youtube.com/@ConceptTodekaviwo?si=39O-fR16lG6bADGF');
     };
-
+    const handleYoutubePersoPress = () => {
+        Linking.openURL('https://www.youtube.com/@TONTONEDOUARDTOGODIEUESTDIEUTV');
+    };
     const handleFacebookPress = () => {
         Linking.openURL('https://www.facebook.com/concepttodekaviwo?mibextid=2JQ9oc');
     };
@@ -52,7 +54,7 @@ const HomeScreen = () => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false)
-        }, 2000);
+        }, 5000);
 
     }, [isFocused]);
 
@@ -61,19 +63,27 @@ const HomeScreen = () => {
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
-            <Text style={{ color: 'black', textAlign: "center", fontSize: 18, marginBottom: 15, fontWeight: 'bold' }}>Cliquer sur l'un des liens suivants</Text>
-            <Text style={{ color: 'black', textAlign: "center", fontSize: 25, marginBottom: 15, fontWeight: 'bold' }}>👇</Text>
+            {isLoading == false ? <View>
+                <Text style={{ color: 'black', textAlign: "center", fontSize: 18, marginBottom: 15, fontWeight: 'bold' }}>Cliquer sur l'un des liens suivants</Text>
+                <Text style={{ color: 'black', textAlign: "center", fontSize: 25, marginBottom: 15, fontWeight: 'bold' }}>👇</Text>
 
-            {/* <TouchableOpacity onPress={() => nav.navigate('video')}>
+                {/* <TouchableOpacity onPress={() => nav.navigate('video')}>
                 <Button title='Cliquer pour Suivre la tv' color={colors.mainColor} onPress={() => nav.navigate('video')} />
             </TouchableOpacity> */}
-            <Card2 imageSource={require("../assets/tv.png")} text="TV Todekaviwo" onPress={() => nav.navigate('video')} />
-            <Card2 imageSource={require("../assets/radio.png")} text="Radio Todekaviwo" onPress={() => nav.navigate('radio')} />
-            <Card2 imageSource={require("../assets/facebook.png")} text="Facebook Todekaviwo" onPress={handleFacebookPress} />
-            <Card2 imageSource={require("../assets/youtube.png")} text="Youtube Todekaviwo" onPress={handleYoutubePress} />
-            <Card2 imageSource={require("../assets/site.png")} text="Site Web" onPress={handleSitePress} />
-       
-            <View style={{ marginBottom:45 }}></View>
+                <Card2 imageSource={require("../assets/tv.png")} text="TV Todekaviwo" onPress={() => nav.navigate('video')} />
+                <Card2 imageSource={require("../assets/radio.png")} text="Radio Todekaviwo" onPress={() => nav.navigate('radio')} />
+                <Card2 imageSource={require("../assets/facebook.png")} text="Facebook Todekaviwo" onPress={handleFacebookPress} />
+                <Card2 imageSource={require("../assets/youtube.png")} text="Youtube Todekaviwo" onPress={handleYoutubePress} />
+                <Card2 imageSource={require("../assets/ev.jpeg")} text="Tonton Edouard Togo" onPress={handleYoutubePersoPress} />
+                <Card2 imageSource={require("../assets/site.png")} text="Site Web" onPress={handleSitePress} />
+
+                <View style={{ marginBottom: 45 }}></View>
+            </View> :
+                <View style={{ height: 100, width: '100%', marginBottom: 10, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator size={80} color="green" />
+                </View>
+            }
+
         </ScrollView>
     );
 }
